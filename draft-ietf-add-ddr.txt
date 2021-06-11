@@ -208,6 +208,10 @@ Table of Contents
    records can be made to the Unencrypted Resolver (or some other
    resolver the DNS client has been configured to use).
 
+   If the recursive resolver that receives this query has no Designated
+   Resolvers, it SHOULD return NODATA for queries to the "resolver.arpa"
+   SUDN.
+
 4.1.  Authenticated Discovery
 
    In order to be considered an authenticated Designated Resolver, the
@@ -286,7 +290,7 @@ Table of Contents
    Often, the various supported encrypted DNS protocols will be
    accessible using the same hostname.  In the example above, both DoH
    and DoT use the name "resolver.example.com" for their TLS
-   certficates.  If a deployment uses a different hostname for one
+   certificates.  If a deployment uses a different hostname for one
    protocol, but still wants clients to treat both DNS servers as
    designated, the TLS certificates MUST include both names in the
    SubjectAlternativeName fields.  Note that this name verification is
@@ -370,6 +374,13 @@ Table of Contents
    reuse for other purposes where the resolver wishes to provide
    information about itself to the client.
 
+   The "resolver.arpa" SUDN is similar to "ipv4only.arpa" in that the
+   querying client is not interested in an answer from the authoritative
+   "arpa" name servers.  The intent of the SUDN is to allow clients to
+   communicate with the Unencrypted Resolver much like "ipv4only.arpa"
+   allows for client-to-middlebox communication.  For more context, see
+   the rationale behind "ipv4only.arpa" in [RFC8880].
+
 9.  References
 
 9.1.  Normative References
@@ -446,6 +457,10 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
+
+   [RFC8880]  Cheshire, S. and D. Schinazi, "Special Use Domain Name
+              'ipv4only.arpa'", RFC 8880, DOI 10.17487/RFC8880, August
+              2020, <https://datatracker.ietf.org/doc/html/rfc8880>.
 
 Appendix A.  Rationale for using SVCB records
 
